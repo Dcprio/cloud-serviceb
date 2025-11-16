@@ -1,0 +1,34 @@
+server:
+  port: 18081  # 应用端口
+  servlet:
+    context-path: /b
+
+spring:
+  application:
+    name: cloud-serviceb # 服务名称，注册到 Nacos
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.142.130:8848
+      serverAddr: 192.168.142.130:8848
+      username: nacos
+      password: nacos
+  config:
+    import:
+      - nacos:cloud-serviceb.properties?refreshEnabled=true
+    loadbalancer:
+      ribbon:
+        enabled: false
+      nacos:
+        enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    com.alibaba.cloud.nacos.configdata: debug
